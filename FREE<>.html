@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE 0.1</title>
+    <style>
+        body {
+            background: linear-gradient(to right, red, black);
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            padding: 10px;
+            background: red;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background: darkred;
+        }
+        .flashing {
+            animation: flash 1s infinite alternate;
+            color: red;
+        }
+        @keyframes flash {
+            0% { color: white; }
+            100% { color: yellow; }
+        }
+        .comment-box {
+            margin: 20px auto;
+            padding: 10px;
+            width: 80%;
+            background: black;
+            color: red;
+            border: 2px solid red;
+            border-radius: 5px;
+        }
+        .lang-switch {
+            margin: 10px;
+        }
+        .comment {
+            margin: 10px 0;
+            padding: 5px;
+            background: #222;
+            border-radius: 5px;
+            color: red;
+        }
+        .like-btn {
+            color: green;
+            cursor: pointer;
+        }
+        .dislike-btn {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="flashing">FREE 0.1</h1>
+    
+    <div class="lang-switch">
+        <button onclick="changeLang('ar')">العربية</button>
+        <button onclick="changeLang('en')">English</button>
+        <button onclick="changeLang('fr')">Français</button>
+    </div>
+    
+    <a class="button" href="https://www.ps3xploit.me/">HEN 4.92</a>
+    <a class="button" href="#game">GAME</a>
+    
+    <div id="game">
+        <a class="button" href="#ps3">PS3</a>
+        <a class="button" href="#mobile">MOBILE</a>
+    </div>
+    
+    <div id="ps3">
+        <a class="button" href="https://romsfun.com/roms/playstation-3/plants-vs-zombies-2.html">Zombie vs Plants</a>
+        <a class="button" href="https://romsfun.com/roms/playstation-3/minecraft.html">Minecraft Free ISO</a>
+    </div>
+    
+    <div id="mobile">
+        <p class="flashing">MINECRAFT FREE ZOMBIE VS PONTS</p>
+        <a class="button" href="https://www.ar.apkfre.com/%D8%AA%D9%86%D8%B2%D9%8A%D9%84-%D9%85%D8%A7%D9%8A%D9%86-%D9%83%D8%B1%D8%A7%D9%81%D8%AA-2024/">Minecraft Mobile</a>
+        <a class="button" href="https://plants-vs-zombies-free.en.uptodown.com/android">Plants vs Zombies Mobile</a>
+    </div>
+    
+    <h2>اخبار الموقع</h2>
+    <p class="flashing">انتظروا تحديث 0.2 قريباً!</p>
+    
+    <div class="comment-box">
+        <h3>التعليقات</h3>
+        <textarea id="comment" placeholder="اكتب تعليقك هنا..."></textarea>
+        <button onclick="addComment()">نشر</button>
+        <ul id="comment-list"></ul>
+    </div>
+    
+    <script>
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        
+        function displayComments() {
+            const commentList = document.getElementById('comment-list');
+            commentList.innerHTML = '';
+            comments.forEach((comment, index) => {
+                const li = document.createElement('li');
+                li.classList.add('comment');
+                li.innerHTML = `${comment.text} 
+                    <span class="like-btn" onclick="likeComment(${index})">👍</span> 
+                    <span class="dislike-btn" onclick="dislikeComment(${index})">👎</span>
+                    <button onclick="deleteComment(${index})">حذف</button>`;
+                commentList.appendChild(li);
+            });
+        }
+
+        function addComment() {
+            const commentText = document.getElementById('comment').value;
+            if (commentText) {
+                comments.push({ text: commentText, likes: 0, dislikes: 0 });
+                localStorage.setItem('comments', JSON.stringify(comments));
+                displayComments();
+                document.getElementById('comment').value = '';
+            }
+        }
+
+        function deleteComment(index) {
+            comments.splice(index, 1);
+            localStorage.setItem('comments', JSON.stringify(comments));
+            displayComments();
+        }
+
+        function likeComment(index) {
+            comments[index].likes++;
+            localStorage.setItem('comments', JSON.stringify(comments));
+            displayComments();
+        }
+
+        function dislikeComment(index) {
+            comments[index].dislikes++;
+            localStorage.setItem('comments', JSON.stringify(comments));
+            displayComments();
+        }
+
+        function changeLang(lang) {
+            alert("تم تغيير اللغة إلى " + lang);
+        }
+
+        // Display comments on page load
+        displayComments();
+    </script>
+</body>
+</html>
